@@ -5,10 +5,13 @@ Created on Sun Jun 18 18:49:57 2017
 @author: April
 """
 import thulac 
+import simplejson as json
 thu1 = thulac.thulac()  #默认模式
 text = thu1.cut("我爱北京天安门", text=True)  #进行一句话分词
 print(text)
-qinggan_dict = {"喜欢":1,"爱":2};
+emotionData=open('emotion.txt','r').read()
+qinggan_dict = json.loads(emotionData)
+print(qinggan_dict)
 wordslist = text.split(' ')
 qinggan_words = [];
 for ix in wordslist:
