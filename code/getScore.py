@@ -129,7 +129,7 @@ def main():
 	degreeDict=getDegreeDictList('{0}/dict/{1}'.format(os.path.dirname(os.getcwd()),degreeDictName),
 		'{0}/dict/{1}'.format(os.path.dirname(os.getcwd()),degreeScoreName))
 	sentenceToWordsList=cutParagraphToWords(getDataFrame('{0}/dict/{1}'.format(os.path.dirname(os.getcwd()),dataName)))
-	score=getScore(sentenceToWordsList,degreeDict)
+	#score=getScore(sentenceToWordsList,degreeDict)
 	print(score)
 if __name__ == '__main__':
 	main()
