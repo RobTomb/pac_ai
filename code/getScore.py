@@ -63,18 +63,9 @@ def getScore(sentenceToWordsList,degreeDict):
 						
 						if(sentimentWord[0]-notWords[0]<3 and flag):
 							wight+=(-1)*sentimentWord[2]
-							#print([124],notWords,sentimentWord,degreeWord)
-				    
-						#print(notWords)
+
 		wightList.append(wight)
-		#print(wight)
-	#print(conjWight)
-	'''
-	for conj in conjWight:
-		if(conj[0] in conjDict):
-			if(conjDict[conj] == 0):
-				wightList
-	'''
+
 	if(len(conjWight)!=0 and len(wightList)!=1):
 		for x in range(len(conjWight)):
 			if(conjWight[x][0] in conjDict):
