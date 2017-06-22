@@ -3,3 +3,6 @@ test.py
 wenBen.txt
 emotion.txt
 .idea/
+/dict/stopWords.txt
+/dict/positiveDict.txt
+/dict/negative.txt
