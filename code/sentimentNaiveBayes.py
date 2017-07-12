@@ -59,23 +59,30 @@ def tagTrainSet(trainSet):
 			trainSet.ix[ix,'pos_se_tag'] = 2
 
 
+#def cutParagraphToWords(pa):
 
-def cutParagraphToWords(trainSet):
-	#print('step 1 cut paragraph to words')
-	stopWords=['ug','uv','i','s','k','nrt','vn','ad','o','y','e','nz','u','p','ng','x','m','c','r','ul','v','zg','t','n','uj','nr','f','d','j','l','ns','eng','q','uz','b','mq']
-	exitWords=['推荐','半价','值','好评','划算','免费']
+def getF(trainSet):
 	dataSet=trainSet['content']
-	wordsList=[]
+	wordsList=[]		
 	for paragraph in dataSet.values:
-		paragraphToWords=pseg.cut(paragraph.split('>').pop())
-		wordsCutList=[]
-		for word,flag in paragraphToWords:
-			if(word != ' ' and word != ''):
-				if(word in exitWords or flag not in stopWords ):
-					wordsCutList.append([word,flag])
-		wordsList.append(wordsCutList)
-
+		wordsList.append(cutParagraphToWords(paragraph))
 	return wordsList
+
+def cutParagraphToWords(paragraph):
+	#print('step 1 cut paragraph to words')
+	stopStrFileName='stopStr.txt'
+	stopPath='{0}/dict/{1}'.format(os.path.dirname(os.getcwd()),stopStrFileName)
+
+	with open(stopPath,'r') as stopStrFile:
+		stopWords=stopStrFile.read().split(' ')
+
+	wordsCutList=[]
+	paragraphToWords=pseg.cut(paragraph.split('>').pop())
+	
+	for word,flag in paragraphToWords:
+		if(word not in stopWords and word != ' ' and word != ''):	
+			wordsCutList.append([word,flag])
+	return wordsCutList
 
 
 
@@ -86,7 +93,7 @@ def main():
 	dataFilePath='{0}/NaiveBayesData/{1}'.format(os.path.dirname(os.getcwd()),dataFileName)
 	trainSet=pd.read_excel(dataFilePath)
 	#print(trainSet)
-	wordsList=cutParagraphToWords(trainSet)	
+	wordsList=getF(trainSet)	
 	tagTrainSet(trainSet)
 	NBDict=countNum(wordsList,trainSet)
 	p=classify([['差', 'a'], ['连单', 'a']],NBDict)
